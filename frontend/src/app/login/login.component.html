@@ -1,0 +1,40 @@
+<div class="login-form-container">
+  <mat-card class="login-card">
+    <h1>Login</h1>
+
+    <form id="loginForm" (ngSubmit)="login()" #loginForm="ngForm">
+
+      <mat-form-field appearance="fill">
+        <mat-label>E-Mail-Adresse:</mat-label>
+        <input matInput type="email" id="email" name="email" required email [(ngModel)]="email" #emailField="ngModel">
+        <mat-error *ngIf="emailField.errors?.['email'] && emailField.touched">
+          Bitte geben Sie eine gültige E-Mail-Adresse ein.
+        </mat-error>
+        <mat-error *ngIf="emailField.errors?.['required'] && emailField.touched">
+          Das E-Mail-Feld ist erforderlich.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Passwort:</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" id="password" name="password" required [(ngModel)]="password" #passwordField="ngModel">
+        <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Toggle password visibility'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        
+        <mat-error *ngIf="passwordField.errors?.['required'] && passwordField.touched">
+          Das Passwort-Feld ist erforderlich.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Fehlermeldung wenn eines der Felder (oder beide) leer oder falsch sind -->
+      <div *ngIf="showErrorMessage" class="error-message">
+        <mat-error>{{errorMessage}}</mat-error>
+      </div>
+
+      <p>Noch nicht registriert? Dann geht es <a routerLink="/register">hier</a> zur Registrierung.</p>
+      <button mat-raised-button color="primary" type="submit">Login</button>
+
+    </form>
+  </mat-card>
+</div>

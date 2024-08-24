@@ -1,0 +1,76 @@
+<div class="register-form-container">
+    <mat-card class="register-card">
+      <h1>Register</h1>
+
+      <form id="registerForm" (ngSubmit)="register()" #registerForm="ngForm">
+
+        <mat-form-field appearance="fill">
+          <mat-label>E-Mail-Adresse:</mat-label>
+          <input matInput type="email" id="email" name="email" required email [(ngModel)]="email" #emailField="ngModel">
+          <mat-error *ngIf="emailField.errors?.['email'] && emailField.touched">
+            Bitte geben Sie eine gültige E-Mail-Adresse ein.
+          </mat-error>
+          <mat-error *ngIf="emailField.errors?.['required'] && emailField.touched">
+            Das E-Mail-Feld ist erforderlich.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Passwort:</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" id="password" name="password" required minlength="8" [(ngModel)]="password" #passwordField="ngModel">
+          <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword" [attr.aria-label]="'Toggle password visibility'" [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="passwordField.errors?.['required'] && passwordField.touched">
+            Das Passwort-Feld ist erforderlich.
+          </mat-error>
+          <mat-error *ngIf="passwordField.errors?.['minlength'] && passwordField.touched">
+            Das Passwort muss mindestens 8 Zeichen lang sein.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Passwort bestätigen:</mat-label>
+          <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" id="confirm-password" name="confirm-password" required minlength="8" [(ngModel)]="confirmPassword" #confirmPasswordField="ngModel">
+          <button mat-icon-button matSuffix type="button" (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Toggle password visibility'" [attr.aria-pressed]="hideConfirmPassword">
+            <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="confirmPasswordField.errors?.['required'] && confirmPasswordField.touched">
+            Das Passwort bestägien-Feld ist erforderlich.
+          </mat-error>
+          <mat-error *ngIf="confirmPasswordField.errors?.['minlength'] && confirmPasswordField.touched">
+            Das Passwort muss mindestens 8 Zeichen lang sein.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+            <mat-label>Firma</mat-label>
+            <input matInput type="text" id="company" name="company" value="{{ company }}" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Straße</mat-label>
+            <textarea matInput type="text" id="street" name="street" rows="1" [(ngModel)]="street"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Stadt</mat-label>
+            <input matInput type="text" id="city" name="city" [(ngModel)]="city">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Postleitzahl</mat-label>
+            <input matInput type="number" id="zip" name="zip" [(ngModel)]="zip">
+        </mat-form-field>
+
+      <!-- Fehlermeldung wenn eines (oder mehrere) Pflichfelder nicht ausgefüllt sind, oder die Passwörter nicht übereinstimmen -->
+      <div *ngIf="showErrorMessage" class="error-message">
+        <mat-error>{{errorMessage}}</mat-error>
+      </div>
+
+        <p>Schon registriert? Dann geht es <a routerLink="/login">hier</a> zum Login!</p>
+        <button mat-raised-button id="register-button" color="primary" type="submit">Register</button>
+        
+      </form>
+    </mat-card>
+</div>

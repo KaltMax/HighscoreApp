@@ -1,0 +1,43 @@
+h1 {
+    text-align: center;
+}
+
+h2 {
+    padding-top: 20px;
+    text-align: center;
+}
+
+#dashboard-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 400px;
+    margin: auto;
+}
+
+mat-card {
+    margin: 20px; /* Add some margin to separate the cards */
+    width: 100%;
+    max-width: 400px; /* Limit the maximum width of the card */
+}
+
+mat-card-content {
+    display: flex; /* Ensure flexbox is used */
+    flex-direction: column; /* Stack content vertically inside the card */
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Ensure content takes the full width of the card */
+}
+
+button {
+    padding: 10px;
+    margin: 20px;
+    width: 80%;
+}
+
+mat-form-field {
+    margin: 0 20px 0 20px;
+    width: 80%; 
+}

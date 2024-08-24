@@ -1,0 +1,13 @@
+#navbar-container {
+    margin-bottom: 100px;
+}
+
+@media (min-width: 721px) {
+    #nav-title {
+        padding-right: 30px;
+    }
+
+    .nav-button {
+        padding: 0px 30px 0px 30px;
+    }
+}

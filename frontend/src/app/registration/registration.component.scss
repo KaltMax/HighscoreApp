@@ -1,0 +1,33 @@
+.register-form-container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .register-card {
+    display: inline-block;
+    padding: 20px;
+    width: 100%;
+    max-width: 500px; 
+    margin-bottom: 100px;
+  }
+  
+  /* Anpassen der Breite der Formularfelder */
+  mat-form-field {
+    width: 100%; 
+    max-width: 400px; 
+  }
+  
+  /* Responsive Anpassungen */
+  @media (max-width: 600px) {
+    .register-card {
+      margin: 20px;
+      max-width: 90%; 
+    }
+  
+    mat-form-field {
+      max-width: 100%; 
+    }
+  }
+  

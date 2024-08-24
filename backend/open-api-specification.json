@@ -1,0 +1,206 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Highscore List Application API",
+    "description": "API for user registration, login, and retrieving the highscore list.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/users": {
+        "post": {
+          "summary": "Register a new user",
+          "description": "This endpoint registers a new user in the system.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "password": {
+                      "type": "string",
+                      "format": "password"
+                    },
+                    "street": {
+                      "type": "string"
+                    },
+                    "city": {
+                      "type": "string"
+                    },
+                    "zip": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": ["email", "password"]
+                }
+              }
+            },
+            "responses": {
+              "201": {
+                "description": "User successfully registered"
+              },
+              "400": {
+                "description": "Invalid input"
+              },
+              "409": {
+                "description": "Email already taken"
+              }
+            }
+          }
+        }
+      },
+      "/sessions": {
+        "post": {
+          "summary": "Login an existing user",
+          "description": "This endpoint logs in an existing user.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "password": {
+                      "type": "string",
+                      "format": "password"
+                    }
+                  },
+                  "required": ["email", "password"]
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "User successfully logged in",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "description": "Token for authenticated requests"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "401": {
+                "description": "Invalid credentials"
+              }
+            }
+          },
+          "delete": {
+            "summary": "Logout a user",
+            "description": "This endpoint logs out an authenticated user.",
+            "security": [
+              {
+                "bearerAuth": []
+              }
+            ],
+            "responses": {
+              "204": {
+                "description": "User successfully logged out"
+              },
+              "401": {
+                "description": "Unauthorized"
+              }
+            }
+          }
+        }
+      },
+      "/highscores": {
+        "get": {
+          "summary": "Get the highscore list",
+          "description": "This endpoint returns the highscore list. Only logged in users can access this.",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Highscore list retrieved successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "username": {
+                          "type": "string"
+                        },
+                        "score": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "401": {
+                "description": "Unauthorized"
+              }
+            }
+        },
+        "post": {
+          "summary": "Create a new highscore",
+          "description": "This endpoint creates a new highscore entry. Only logged in users can access this.",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string"
+                    },
+                    "score": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": ["username", "score"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Highscore entry successfully created"
+            },
+            "400": {
+              "description": "Invalid input"
+            },
+            "401": {
+              "description": "Unauthorized"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer"
+        }
+      }
+    }
+  }
+}
